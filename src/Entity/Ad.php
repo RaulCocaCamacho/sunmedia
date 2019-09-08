@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Ad {
     /**
-     * @var bool
+     * @var int
      *
      * @ORM\Column(name="id", type="boolean", nullable=false)
      * @ORM\Id
@@ -23,7 +23,7 @@ class Ad {
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
      * @ORM\Column(name="name", type="integer", nullable=false)
      */

@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="component_types")
  * @ORM\Entity
  */
-class ComponentTypes
-{
+class ComponentTypes {
     /**
      * @var int
      *
@@ -28,22 +27,18 @@ class ComponentTypes
      */
     private $name;
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
+    public function getName(): ?string {
         return $this->name;
     }
 
-    public function setName(string $name): self
-    {
+    public function setName(string $name): self {
         $this->name = $name;
 
         return $this;
     }
-
 
 }

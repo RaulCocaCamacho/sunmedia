@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ads", indexes={@ORM\Index(name="component_type_id", columns={"component_type_id"}), @ORM\Index(name="ad_status_id", columns={"ad_status_id"}), @ORM\Index(name="component_id", columns={"component_id"})})
  * @ORM\Entity
  */
-class Ads
-{
+class Ads {
     /**
      * @var bool
      *
@@ -93,118 +92,98 @@ class Ads
      */
     private $component;
 
-    public function getId(): ?bool
-    {
+    public function getId(): ?bool {
         return $this->id;
     }
 
-    public function getName(): ?int
-    {
+    public function getName(): ?int {
         return $this->name;
     }
 
-    public function setName(int $name): self
-    {
+    public function setName(int $name): self {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getWidth(): ?int
-    {
+    public function getWidth(): ?int {
         return $this->width;
     }
 
-    public function setWidth(int $width): self
-    {
+    public function setWidth(int $width): self {
         $this->width = $width;
 
         return $this;
     }
 
-    public function getHeight(): ?int
-    {
+    public function getHeight(): ?int {
         return $this->height;
     }
 
-    public function setHeight(int $height): self
-    {
+    public function setHeight(int $height): self {
         $this->height = $height;
 
         return $this;
     }
 
-    public function getX(): ?int
-    {
+    public function getX(): ?int {
         return $this->x;
     }
 
-    public function setX(int $x): self
-    {
+    public function setX(int $x): self {
         $this->x = $x;
 
         return $this;
     }
 
-    public function getY(): ?int
-    {
+    public function getY(): ?int {
         return $this->y;
     }
 
-    public function setY(int $y): self
-    {
+    public function setY(int $y): self {
         $this->y = $y;
 
         return $this;
     }
 
-    public function getZ(): ?int
-    {
+    public function getZ(): ?int {
         return $this->z;
     }
 
-    public function setZ(int $z): self
-    {
+    public function setZ(int $z): self {
         $this->z = $z;
 
         return $this;
     }
 
-    public function getAdStatus(): ?AdStatuses
-    {
+    public function getAdStatus(): ?AdStatuses {
         return $this->adStatus;
     }
 
-    public function setAdStatus(?AdStatuses $adStatus): self
-    {
+    public function setAdStatus(?AdStatuses $adStatus): self {
         $this->adStatus = $adStatus;
 
         return $this;
     }
 
-    public function getComponentType(): ?ComponentTypes
-    {
+    public function getComponentType(): ?ComponentTypes {
         return $this->componentType;
     }
 
-    public function setComponentType(?ComponentTypes $componentType): self
-    {
+    public function setComponentType(?ComponentTypes $componentType): self {
         $this->componentType = $componentType;
 
         return $this;
     }
 
-    public function getComponent(): ?Components
-    {
+    public function getComponent(): ?Components {
         return $this->component;
     }
 
-    public function setComponent(?Components $component): self
-    {
+    public function setComponent(?Components $component): self {
         $this->component = $component;
 
         return $this;
     }
-
 
 }

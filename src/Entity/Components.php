@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="components", indexes={@ORM\Index(name="component_type_id", columns={"component_type_id"})})
  * @ORM\Entity
  */
-class Components
-{
+class Components {
     /**
      * @var int
      *
@@ -56,70 +55,58 @@ class Components
      */
     private $text;
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getComponentTypeId(): ?int
-    {
+    public function getComponentTypeId(): ?int {
         return $this->componentTypeId;
     }
 
-    public function setComponentTypeId(int $componentTypeId): self
-    {
+    public function setComponentTypeId(int $componentTypeId): self {
         $this->componentTypeId = $componentTypeId;
 
         return $this;
     }
 
-    public function getLink(): ?string
-    {
+    public function getLink(): ?string {
         return $this->link;
     }
 
-    public function setLink(?string $link): self
-    {
+    public function setLink(?string $link): self {
         $this->link = $link;
 
         return $this;
     }
 
-    public function getFormat(): ?string
-    {
+    public function getFormat(): ?string {
         return $this->format;
     }
 
-    public function setFormat(?string $format): self
-    {
+    public function setFormat(?string $format): self {
         $this->format = $format;
 
         return $this;
     }
 
-    public function getWeight(): ?int
-    {
+    public function getWeight(): ?int {
         return $this->weight;
     }
 
-    public function setWeight(?int $weight): self
-    {
+    public function setWeight(?int $weight): self {
         $this->weight = $weight;
 
         return $this;
     }
 
-    public function getText(): ?string
-    {
+    public function getText(): ?string {
         return $this->text;
     }
 
-    public function setText(?string $text): self
-    {
+    public function setText(?string $text): self {
         $this->text = $text;
 
         return $this;
     }
-
 
 }

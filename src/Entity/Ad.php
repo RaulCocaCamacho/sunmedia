@@ -94,11 +94,11 @@ class Ad {
      */
     private $component;
 
-    public function getId(): ?bool {
+    public function getId(): ?int {
         return $this->id;
     }
 
-    public function getName(): ?int {
+    public function getName(): ?string {
         return $this->name;
     }
 

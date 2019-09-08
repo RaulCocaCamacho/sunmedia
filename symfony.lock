@@ -126,8 +126,17 @@
     "fig/link-util": {
         "version": "1.0.0"
     },
+    "firebase/php-jwt": {
+        "version": "v5.0.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "knplabs/knp-components": {
+        "version": "v2.2.0"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v4.0.0"
     },
     "monolog/monolog": {
         "version": "1.25.1"

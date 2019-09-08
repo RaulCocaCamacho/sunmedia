@@ -13,6 +13,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ORM\Entity
  */
 class ComponentType {
+
     /**
      * @var int
      *

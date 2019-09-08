@@ -1,3 +1,4 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /api/v1/create-ad
+    controller: App\Controller\AdController::createAd
+    methods: [POST]

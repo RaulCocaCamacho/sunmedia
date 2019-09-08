@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
- * AdStatuses
+ * AdStatus
  *
+ * @ApiResource()
  * @ORM\Table(name="ad_statuses")
  * @ORM\Entity
  */

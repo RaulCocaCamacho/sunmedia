@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Ads
  *
+ * @ApiResource()
  * @ORM\Table(name="ads", indexes={@ORM\Index(name="component_type_id", columns={"component_type_id"}), @ORM\Index(name="ad_status_id", columns={"ad_status_id"}), @ORM\Index(name="component_id", columns={"component_id"})})
  * @ORM\Entity
  */
@@ -65,7 +67,7 @@ class Ad {
     /**
      * @var \AdStatus
      *
-     * @ORM\ManyToOne(targetEntity="AdStatuses")
+     * @ORM\ManyToOne(targetEntity="AdStatus")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="ad_status_id", referencedColumnName="id")
      * })
@@ -75,7 +77,7 @@ class Ad {
     /**
      * @var \ComponentType
      *
-     * @ORM\ManyToOne(targetEntity="ComponentTypes")
+     * @ORM\ManyToOne(targetEntity="ComponentType")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="component_type_id", referencedColumnName="id")
      * })
@@ -85,7 +87,7 @@ class Ad {
     /**
      * @var \Component
      *
-     * @ORM\ManyToOne(targetEntity="Components")
+     * @ORM\ManyToOne(targetEntity="Component")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="component_id", referencedColumnName="id")
      * })

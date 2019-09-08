@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
- * Components
+ * Component
  *
+ * @ApiResource()
  * @ORM\Table(name="components", indexes={@ORM\Index(name="component_type_id", columns={"component_type_id"})})
  * @ORM\Entity
  */

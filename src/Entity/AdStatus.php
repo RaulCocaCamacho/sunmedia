@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ComponentTypes
+ * AdStatuses
  *
- * @ORM\Table(name="component_types")
+ * @ORM\Table(name="ad_statuses")
  * @ORM\Entity
  */
-class ComponentTypes {
+class AdStatus {
     /**
      * @var int
      *

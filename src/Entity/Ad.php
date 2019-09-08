@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ads", indexes={@ORM\Index(name="component_type_id", columns={"component_type_id"}), @ORM\Index(name="ad_status_id", columns={"ad_status_id"}), @ORM\Index(name="component_id", columns={"component_id"})})
  * @ORM\Entity
  */
-class Ads {
+class Ad {
     /**
      * @var bool
      *
@@ -63,7 +63,7 @@ class Ads {
     private $z;
 
     /**
-     * @var \AdStatuses
+     * @var \AdStatus
      *
      * @ORM\ManyToOne(targetEntity="AdStatuses")
      * @ORM\JoinColumns({
@@ -73,7 +73,7 @@ class Ads {
     private $adStatus;
 
     /**
-     * @var \ComponentTypes
+     * @var \ComponentType
      *
      * @ORM\ManyToOne(targetEntity="ComponentTypes")
      * @ORM\JoinColumns({
@@ -83,7 +83,7 @@ class Ads {
     private $componentType;
 
     /**
-     * @var \Components
+     * @var \Component
      *
      * @ORM\ManyToOne(targetEntity="Components")
      * @ORM\JoinColumns({
@@ -156,31 +156,31 @@ class Ads {
         return $this;
     }
 
-    public function getAdStatus(): ?AdStatuses {
+    public function getAdStatus(): ?AdStatus {
         return $this->adStatus;
     }
 
-    public function setAdStatus(?AdStatuses $adStatus): self {
+    public function setAdStatus(?AdStatus $adStatus): self {
         $this->adStatus = $adStatus;
 
         return $this;
     }
 
-    public function getComponentType(): ?ComponentTypes {
+    public function getComponentType(): ?ComponentType {
         return $this->componentType;
     }
 
-    public function setComponentType(?ComponentTypes $componentType): self {
+    public function setComponentType(?ComponentType $componentType): self {
         $this->componentType = $componentType;
 
         return $this;
     }
 
-    public function getComponent(): ?Components {
+    public function getComponent(): ?Component {
         return $this->component;
     }
 
-    public function setComponent(?Components $component): self {
+    public function setComponent(?Component $component): self {
         $this->component = $component;
 
         return $this;

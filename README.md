@@ -1,6 +1,6 @@
 # sunmedia
 <pre>
-Example to create ads
+<b>Example to create ads</b>
         http://local.sunmedia.com/api/v1/create-ad
         POST
         {
@@ -21,7 +21,7 @@ Example to create ads
         }
         
         
-Example to publish ads
+<b>Example to publish ads</b>
         http://local.sunmedia.com/api/v1/create-ad
         POST
         {"id":35}

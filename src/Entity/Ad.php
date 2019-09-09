@@ -75,16 +75,6 @@ class Ad {
     private $adStatus;
 
     /**
-     * @var \ComponentType
-     *
-     * @ORM\ManyToOne(targetEntity="ComponentType")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="component_type_id", referencedColumnName="id")
-     * })
-     */
-    private $componentType;
-
-    /**
      * @var \Component
      *
      * @ORM\ManyToOne(targetEntity="Component")
@@ -164,16 +154,6 @@ class Ad {
 
     public function setAdStatus(?AdStatus $adStatus): self {
         $this->adStatus = $adStatus;
-
-        return $this;
-    }
-
-    public function getComponentType(): ?ComponentType {
-        return $this->componentType;
-    }
-
-    public function setComponentType(?ComponentType $componentType): self {
-        $this->componentType = $componentType;
 
         return $this;
     }

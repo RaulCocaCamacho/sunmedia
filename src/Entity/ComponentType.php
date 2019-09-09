@@ -30,6 +30,10 @@ class ComponentType {
      */
     private $name;
 
+    const IMAGE = 1;
+    const VIDEO = 2;
+    const TEXT = 3;
+
     public function getId(): ?int {
         return $this->id;
     }

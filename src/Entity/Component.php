@@ -24,11 +24,14 @@ class Component {
     private $id;
 
     /**
-     * @var int
+     * @var \ComponentType
      *
-     * @ORM\Column(name="component_type_id", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="ComponentType")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="component_type_id", referencedColumnName="id")
+     * })
      */
-    private $componentTypeId;
+    private $componentType;
 
     /**
      * @var string|null
@@ -54,20 +57,24 @@ class Component {
     /**
      * @var string|null
      *
-     * @ORM\Column(name="text", type="string", length=250, nullable=true)
+     *
+     * @ORM\Column(name="text", type="string", length=140, nullable=true)
      */
     private $text;
+
+    public $imageFormatAccepted = ['JPG', 'PNG'];
+    public $videoFormatAccepted = ['MP4', 'WEBN'];
 
     public function getId(): ?int {
         return $this->id;
     }
 
-    public function getComponentTypeId(): ?int {
-        return $this->componentTypeId;
+    public function getComponentType(): ?ComponentType {
+        return $this->componentType;
     }
 
-    public function setComponentTypeId(int $componentTypeId): self {
-        $this->componentTypeId = $componentTypeId;
+    public function setComponentType(?ComponentType $componentType): self {
+        $this->componentType = $componentType;
 
         return $this;
     }

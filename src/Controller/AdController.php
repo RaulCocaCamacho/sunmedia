@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use ApiPlatform\Core\Bridge\Symfony\Validator\Validator;
 use App\Entity\Ad;
 use App\Entity\AdStatus;
 use App\Entity\Component;
@@ -10,40 +11,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class AdController extends AbstractController {
-    //
-    //    public function resJson($data) {
-    //        $json = $this->get('serializer')->serialize($data, 'json');
-    //        $response = new Response();
-    //        $response->setContent($json);
-    //        $response->headers->set('Content-Type', 'application/json');
-    //        return $response;
-    //    }
 
     public function createAd(Request $request) {
-
-        //        $ad_repo = $this->getDoctrine()->getRepository(Ad::class);
-        //        $ads = $ad_repo->findAll();
-        //        return $this->resJson($ads);
 
         $json = $request->get('params', null);
         $params = json_decode($json, true);
 
-//        print_r($params);
         if (!empty($params)) {
-            if(self::validateAd($params)){
-                $ad = new Ad();
 
-                $data = [
-                    'status' => 'ok',
-                    'code' => 200,
-                    'message' => '',
-                    'params' => $json
-                ];
-
+            try {
                 $ad = new Ad();
                 $ad->setName($params['name']);
                 $ad->setWidth($params['width']);
@@ -52,47 +32,80 @@ class AdController extends AbstractController {
                 $ad->setY($params['y']);
                 $ad->setZ($params['z']);
 
-                $adStatus = $this->getDoctrine()
-                    ->getRepository(AdStatus::class)
-                    ->find($params['ad_status_id']);
-
+                $adStatus = $this->getDoctrine()->getRepository(AdStatus::class)->find($params['ad_status_id']);
                 $ad->setAdStatus($adStatus);
+                $componentType = $this->getDoctrine()->getRepository(ComponentType::class)->find($params['component_type_id']);
 
-                $componentType = $this->getDoctrine()
-                    ->getRepository(ComponentType::class)
-                    ->find($params['component_type_id']);
-                $ad->setcomponentType($componentType);
-//                $ad->setComponent(new Component($params['component']));
-                $this->saveAd($ad);
+                $component = new Component();
+                $component->setComponentType($componentType);
+                $component->setLink($params['component']['link']);
+                $component->setFormat($params['component']['format']);
+                $component->setWeight($params['component']['weight']);
+                $component->setText($params['component']['text']);
 
-                /*
-                "name": "imagen",
-                "width": 111,
-                "height": 111,
-                "x": 2,
-                "y": 34,
-                "z": 12,
-                "ad_status_id": 2,
-                "component_type_id": 1,
-                "component": {
-                    "id": 1,
-                    "componentTypeId": 1,
-                    "link": "http://miportfolio.com",
-                    "format": "jpg",
-                    "weight": 2,
-                    "text": null
-                 */
+                if (self::validate($component)) {
+                    $ad->setComponent($component);
+
+                    $this->saveObject($component);
+                    $this->saveObject($ad);
+                    $data = [
+                        'status' => 'ok',
+                        'code' => 200,
+                        'message' => 'Anuncio creado!',
+                        'data' => $ad,
+                    ];
+                } else{
+                    $data = [
+                        'status' => 'error',
+                        'code' => 400,
+                        'message' => 'Los componentes no son válidos',
+                        'data' => [],
+                    ];
+                }
+
+
+            } catch (\Exception $e) {
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => $e->getMessage(),
+                    'data' => $e,
+                ];
             }
         }
 
         return new JsonResponse($data);
     }
 
-    public static function validateAd($params){
-        return true;
+    public static function validate($component) {
+        $validator = Validation::createValidator();
+        switch ($component->getComponentType()->getId()) {
+            case ComponentType::IMAGE:
+            case ComponentType::VIDEO:
+                $link_validation = count($validator->validate($component->getLink(), new Assert\Url())) == 0;
+                $weight_validation = intval($component->getWeight()) > 0;
+                $format_validation = in_array(strtoupper($component->getFormat()), $component->getComponentType()->getId() == ComponentType::IMAGE ? $component->imageFormatAccepted : $component->videoFormatAccepted);
+                if($link_validation && $weight_validation && $format_validation){
+                    return true;
+                } else {
+                    return false;
+                }
+                break;
+            case ComponentType::TEXT:
+                var_dump(strlen($component->getText()));
+                    $text_validation = strlen($component->getText()) <= 140;
+                    if($text_validation){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                break;
+        }
+
+        return false;
     }
 
-    public function saveAd($ad){
+    public function saveObject($ad) {
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
         $em->persist($ad);

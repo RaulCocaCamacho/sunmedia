@@ -29,6 +29,10 @@ class AdStatus {
      */
     private $name;
 
+    const PUBLISHED = 1;
+    const stopped = 2;
+    const publishing = 3;
+
     public function getId(): ?int {
         return $this->id;
     }

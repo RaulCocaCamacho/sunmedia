@@ -22,7 +22,7 @@
         
         
 <b>Example to publish ads</b>
-        http://local.sunmedia.com/api/v1/create-ad
+        http://local.sunmedia.com/api/v1/publicate-ad
         POST
         {"id":35}
 </pre>

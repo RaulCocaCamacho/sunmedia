@@ -95,6 +95,11 @@ class AdController extends AbstractController {
     }
 
     public function publicateAd(Request $request) {
+        /*
+        http://local.sunmedia.com/api/v1/publicate-ad
+        POST
+        {"id":35}
+         */
         $json = $request->get('params', null);
         $params = json_decode($json, true);
         if ($params['id']) {
@@ -126,11 +131,6 @@ class AdController extends AbstractController {
     }
 
     public static function validate($component) {
-        /*
-        http://local.sunmedia.com/api/v1/create-ad
-        POST
-        {"id":35}
-         */
         $validator = Validation::createValidator();
         switch ($component->getComponentType()->getId()) {
             case ComponentType::IMAGE:

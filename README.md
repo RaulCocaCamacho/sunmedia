@@ -1,5 +1,5 @@
 # sunmedia
-
+<pre>
 Example to create ads
         http://local.sunmedia.com/api/v1/create-ad
         POST
@@ -25,3 +25,4 @@ Example to publish ads
         http://local.sunmedia.com/api/v1/create-ad
         POST
         {"id":35}
+</pre>

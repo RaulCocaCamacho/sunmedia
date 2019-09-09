@@ -17,12 +17,32 @@ use Symfony\Component\Validator\Constraints as Assert;
 class AdController extends AbstractController {
 
     public function createAd(Request $request) {
+        /*
+        http://local.sunmedia.com/api/v1/create-ad
+        POST
+        {
+        "name": "imagen",
+        "width": 111,
+        "height": 111,
+        "x": 2,
+        "y": 34,
+        "z": 12,
+        "ad_status_id": 2,
+        "component_type_id": 3,
+        "component": {
+            "componentTypeId": 3,
+            "link": "http://www.miportfolio",
+            "format": "jpg",
+            "weight": 3,
+            "text": "portfolio"
+            }
+        }
+         */
 
         $json = $request->get('params', null);
         $params = json_decode($json, true);
 
         if (!empty($params)) {
-
             try {
                 $ad = new Ad();
                 $ad->setName($params['name']);
@@ -77,7 +97,42 @@ class AdController extends AbstractController {
         return new JsonResponse($data);
     }
 
+    public function publicateAd(Request $request) {
+        $json = $request->get('params', null);
+        $params = json_decode($json, true);
+        if ($params['id']) {
+            $ad = $this->getDoctrine()->getRepository(Ad::class)->find($params['id']);
+            if($ad->getAdStatus()->getId() == AdStatus::stopped) {
+                $ad->setAdStatus($this->getDoctrine()->getRepository(AdStatus::class)->find(AdStatus::PUBLISHED));
+                $this->saveObject($ad);
+                $data = [
+                    'status' => 'ok',
+                    'code' => 200,
+                    'message' => 'Anuncio publicado!',
+                ];
+            }else{
+                $data = [
+                    'status' => 'error',
+                    'code' => 400,
+                    'message' => 'El anuncio ya esta en estado ' . $ad->getAdStatus()->getName(),
+                ];
+            }
+        }else{
+            $data = [
+                'status' => 'error',
+                'code' => 400,
+                'message' => 'Falta el parámetro id',
+            ];
+        }
+        return new JsonResponse($data);
+    }
+
     public static function validate($component) {
+        /*
+        http://local.sunmedia.com/api/v1/create-ad
+        POST
+        {"id":35}
+         */
         $validator = Validation::createValidator();
         switch ($component->getComponentType()->getId()) {
             case ComponentType::IMAGE:
@@ -105,10 +160,10 @@ class AdController extends AbstractController {
         return false;
     }
 
-    public function saveObject($ad) {
+    public function saveObject($obj) {
         $doctrine = $this->getDoctrine();
         $em = $doctrine->getManager();
-        $em->persist($ad);
+        $em->persist($obj);
         $em->flush();
     }
 }

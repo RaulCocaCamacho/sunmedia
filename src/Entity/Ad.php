@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ads", indexes={@ORM\Index(name="component_type_id", columns={"component_type_id"}), @ORM\Index(name="ad_status_id", columns={"ad_status_id"}), @ORM\Index(name="component_id", columns={"component_id"})})
  * @ORM\Entity
  */
-class Ad {
+class Ad implements \JsonSerializable {
     /**
      * @var int
      *
@@ -168,4 +168,17 @@ class Ad {
         return $this;
     }
 
+    public function jsonSerialize() {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'width' => $this->width,
+            'height' => $this->height,
+            'x' => $this->x,
+            'y' => $this->y,
+            'z' => $this->z,
+            'ad_status' => $this->adStatus,
+            'component' => $this->component,
+        ];
+    }
 }

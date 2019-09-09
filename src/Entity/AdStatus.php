@@ -12,7 +12,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ORM\Table(name="ad_statuses")
  * @ORM\Entity
  */
-class AdStatus {
+class AdStatus implements \JsonSerializable {
     /**
      * @var int
      *
@@ -47,4 +47,10 @@ class AdStatus {
         return $this;
     }
 
+    public function jsonSerialize() {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
+    }
 }

@@ -12,7 +12,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
  * @ORM\Table(name="component_types")
  * @ORM\Entity
  */
-class ComponentType {
+class ComponentType implements \JsonSerializable {
 
     /**
      * @var int
@@ -46,6 +46,13 @@ class ComponentType {
         $this->name = $name;
 
         return $this;
+    }
+
+    public function jsonSerialize() {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
     }
 
 }

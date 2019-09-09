@@ -28,13 +28,12 @@ class AdController extends AbstractController {
         "y": 34,
         "z": 12,
         "ad_status_id": 2,
-        "component_type_id": 3,
         "component": {
             "componentTypeId": 3,
             "link": "http://www.miportfolio",
             "format": "jpg",
             "weight": 3,
-            "text": "portfolio"
+            "text": ""
             }
         }
          */
@@ -74,7 +73,7 @@ class AdController extends AbstractController {
                         'message' => 'Anuncio creado!',
                         'data' => $ad,
                     ];
-                } else{
+                } else {
                     $data = [
                         'status' => 'error',
                         'code' => 400,
@@ -82,8 +81,6 @@ class AdController extends AbstractController {
                         'data' => [],
                     ];
                 }
-
-
             } catch (\Exception $e) {
                 $data = [
                     'status' => 'error',
@@ -102,7 +99,7 @@ class AdController extends AbstractController {
         $params = json_decode($json, true);
         if ($params['id']) {
             $ad = $this->getDoctrine()->getRepository(Ad::class)->find($params['id']);
-            if($ad->getAdStatus()->getId() == AdStatus::stopped) {
+            if ($ad->getAdStatus()->getId() == AdStatus::stopped) {
                 $ad->setAdStatus($this->getDoctrine()->getRepository(AdStatus::class)->find(AdStatus::PUBLISHED));
                 $this->saveObject($ad);
                 $data = [
@@ -110,20 +107,21 @@ class AdController extends AbstractController {
                     'code' => 200,
                     'message' => 'Anuncio publicado!',
                 ];
-            }else{
+            } else {
                 $data = [
                     'status' => 'error',
                     'code' => 400,
                     'message' => 'El anuncio ya esta en estado ' . $ad->getAdStatus()->getName(),
                 ];
             }
-        }else{
+        } else {
             $data = [
                 'status' => 'error',
                 'code' => 400,
                 'message' => 'Falta el parámetro id',
             ];
         }
+
         return new JsonResponse($data);
     }
 
@@ -140,7 +138,7 @@ class AdController extends AbstractController {
                 $link_validation = count($validator->validate($component->getLink(), new Assert\Url())) == 0;
                 $weight_validation = intval($component->getWeight()) > 0;
                 $format_validation = in_array(strtoupper($component->getFormat()), $component->getComponentType()->getId() == ComponentType::IMAGE ? $component->imageFormatAccepted : $component->videoFormatAccepted);
-                if($link_validation && $weight_validation && $format_validation){
+                if ($link_validation && $weight_validation && $format_validation) {
                     return true;
                 } else {
                     return false;
@@ -148,12 +146,12 @@ class AdController extends AbstractController {
                 break;
             case ComponentType::TEXT:
                 var_dump(strlen($component->getText()));
-                    $text_validation = strlen($component->getText()) <= 140;
-                    if($text_validation){
-                        return true;
-                    }else{
-                        return false;
-                    }
+                $text_validation = strlen($component->getText()) <= 140;
+                if ($text_validation) {
+                    return true;
+                } else {
+                    return false;
+                }
                 break;
         }
 

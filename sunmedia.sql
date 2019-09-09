@@ -1,5 +1,3 @@
--- Adminer 4.7.1 MySQL dump
-
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
@@ -62,4 +60,3 @@ INSERT INTO `component_types` (`id`, `name`) VALUES
 (2,	'video'),
 (3,	'texto');
 
--- 2019-09-09 17:19:32

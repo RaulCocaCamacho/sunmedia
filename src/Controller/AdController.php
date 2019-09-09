@@ -30,7 +30,7 @@ class AdController extends AbstractController {
         "ad_status_id": 2,
         "component": {
             "componentTypeId": 3,
-            "link": "http://www.miportfolio",
+            "link": "http://www.miportfolioraulcoca.com",
             "format": "jpg",
             "weight": 3,
             "text": ""
